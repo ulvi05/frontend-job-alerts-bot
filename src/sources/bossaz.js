@@ -1,13 +1,12 @@
-import * as cheerio from 'cheerio';
-import { getText, clean } from '../http.js';
+import * as cheerio from "cheerio";
+import { getText, clean } from "../http.js";
 
-const BASE = 'https://boss.az';
-// 69 = Proqramlaşdırma, 72 = Proqram təminatı mühəndisi, 159 = Veb-dizayn
+const BASE = "https://boss.az";
 const PAGES = [
-  '/search/vacancies?categoryIds=69',
-  '/search/vacancies?categoryIds=72',
-  '/search/vacancies?categoryIds=159',
-  '/search/vacancies',
+  "/search/vacancies?categoryIds=69",
+  "/search/vacancies?categoryIds=72",
+  "/search/vacancies?categoryIds=159",
+  "/search/vacancies",
 ];
 
 export function parse(html) {
@@ -15,12 +14,12 @@ export function parse(html) {
   const jobs = [];
   $('a[href^="/vacancies/"]').each((_, a) => {
     const el = $(a);
-    const href = el.attr('href');
+    const href = el.attr("href");
     const id = href.match(/\/vacancies\/(\d+)/)?.[1];
     const title = clean(el.find('[data-cy="ad-card-subtitle"]').text());
     if (!id || !title) return;
     jobs.push({
-      source: 'boss.az',
+      source: "boss.az",
       id,
       title,
       company: clean(el.find('[data-cy="ad-card-title"]').text()),
@@ -38,4 +37,4 @@ export async function fetchJobs() {
   return all;
 }
 
-export default { name: 'boss.az', fetchJobs };
+export default { name: "boss.az", fetchJobs };

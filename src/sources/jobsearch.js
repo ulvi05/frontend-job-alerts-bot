@@ -1,16 +1,24 @@
-import { getJson, clean } from '../http.js';
+import { getJson, clean } from "../http.js";
 
-const BASE = 'https://jobsearch.az';
-const QUERIES = ['frontend', 'front-end', 'react', 'javascript', 'vue', 'angular', 'next.js'];
+const BASE = "https://jobsearch.az";
+const QUERIES = [
+  "frontend",
+  "front-end",
+  "react",
+  "javascript",
+  "vue",
+  "angular",
+  "next.js",
+];
 
 export function parse(data) {
   return (data?.items ?? []).map((it) => ({
-    source: 'jobsearch.az',
+    source: "jobsearch.az",
     id: String(it.id),
     title: clean(it.title),
-    company: it.hide_company ? '' : clean(it.company?.title),
+    company: it.hide_company ? "" : clean(it.company?.title),
     salary: clean(it.salary),
-    date: (it.created_at || '').slice(0, 10),
+    date: (it.created_at || "").slice(0, 10),
     url: `${BASE}/vacancies/${it.slug}`,
   }));
 }
@@ -18,13 +26,18 @@ export function parse(data) {
 export async function fetchJobs() {
   const all = [];
   for (const q of QUERIES) {
-    // Bu API "x-requested-with" header-i olmadan HTML qaytarır
-    const data = await getJson(`${BASE}/api-az/vacancies-az?hl=az&q=${encodeURIComponent(q)}`, {
-      headers: { 'x-requested-with': 'XMLHttpRequest', accept: 'application/json' },
-    });
+    const data = await getJson(
+      `${BASE}/api-az/vacancies-az?hl=az&q=${encodeURIComponent(q)}`,
+      {
+        headers: {
+          "x-requested-with": "XMLHttpRequest",
+          accept: "application/json",
+        },
+      },
+    );
     all.push(...parse(data));
   }
   return all;
 }
 
-export default { name: 'jobsearch.az', fetchJobs };
+export default { name: "jobsearch.az", fetchJobs };

@@ -1,12 +1,12 @@
-import { getJson, clean } from '../http.js';
+import { getJson, clean } from "../http.js";
 
-const BASE = 'https://smartjob.az';
-const CATEGORY = 'IT & Development (Proqramlaşdırma)';
+const BASE = "https://smartjob.az";
+const CATEGORY = "IT & Development (Proqramlaşdırma)";
 const MAX_PAGES = 3;
 
 export function parse(data) {
   return (data?.jobs ?? []).map((it) => ({
-    source: 'smartjob.az',
+    source: "smartjob.az",
     id: String(it.id),
     title: clean(it.title),
     company: clean(it.company),
@@ -27,4 +27,4 @@ export async function fetchJobs() {
   return all;
 }
 
-export default { name: 'smartjob.az', fetchJobs };
+export default { name: "smartjob.az", fetchJobs };
