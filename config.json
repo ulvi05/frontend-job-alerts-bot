@@ -1,0 +1,23 @@
+{
+  "includeKeywords": [
+    "front-end",
+    "frontend",
+    "front end",
+    "react",
+    "next.js",
+    "nextjs",
+    "vue",
+    "angular",
+    "javascript",
+    "typescript",
+    "web developer",
+    "veb proqramçı",
+    "veb developer",
+    "ui developer",
+    "full-stack",
+    "fullstack",
+    "full stack"
+  ],
+  "excludeKeywords": [],
+  "seenRetentionDays": 60
+}

@@ -1,0 +1,43 @@
+name: İş elanları botu
+
+on:
+  schedule:
+    # Hər 2 saatdan bir (UTC). Bakı vaxtı = UTC+4
+    - cron: '17 */2 * * *'
+  workflow_dispatch: # GitHub-da "Run workflow" düyməsi ilə əl ilə işə salmaq üçün
+
+permissions:
+  contents: write # seen.json-u commit etmək üçün
+
+concurrency:
+  group: is-elanlari
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Elanları yoxla və Telegram-a göndər
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: npm start
+
+      - name: Görülən elanları yadda saxla
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898233+github-actions[bot]@users.noreply.github.com"
+          [ -f seen.json ] || exit 0
+          git add seen.json
+          git diff --cached --quiet || (git commit -m "seen.json yeniləndi [skip ci]" && git push)
