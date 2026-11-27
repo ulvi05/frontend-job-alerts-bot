@@ -4,7 +4,7 @@ Scrapes **Frontend / React** vacancies from Azerbaijani job sites — boss.az, h
 
 ## Features
 
-- **6 sources** — JSON APIs where available (jobsearch.az, smartjob.az), HTML parsing with Cheerio elsewhere
+- **7 sources** — JSON APIs where available (jobsearch.az, smartjob.az), HTML parsing with Cheerio elsewhere
 - **Keyword filtering** — configurable include/exclude lists, normalized for Azerbaijani characters (`ə`, `ı`, `ş`…)
 - **Deduplication** — each vacancy is sent only once, even if the same job is posted on several sites
 - **State in the repo** — seen vacancies are stored in `seen.json` and committed back by the workflow
