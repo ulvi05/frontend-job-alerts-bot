@@ -1,6 +1,6 @@
 # Job Alert Bot 🤖
 
-Scrapes **Frontend / React** vacancies from Azerbaijani job sites — boss.az, hellojob.az, jobsearch.az, smartjob.az, busy.az and cyberjob.az — and sends new ones to Telegram. Runs for free on GitHub Actions every 2 hours.
+Scrapes **Frontend / React** vacancies from Azerbaijani job sites — boss.az, hellojob.az, jobsearch.az, smartjob.az, busy.az, cyberjob.az and jobs.glorri.com — and sends new ones to Telegram. Runs for free on GitHub Actions every 2 hours.
 
 ## Features
 
